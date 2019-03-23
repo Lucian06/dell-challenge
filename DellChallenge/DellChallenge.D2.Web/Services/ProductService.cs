@@ -17,10 +17,26 @@ namespace DellChallenge.D2.Web.Services
 
         public IEnumerable<ProductModel> GetAll()
         {
-            
+
             var apiClient = new RestClient("http://localhost:5000/api");
             var apiRequest = new RestRequest("products", Method.GET, DataFormat.Json);
             var apiResponse = apiClient.Execute<List<ProductModel>>(apiRequest);
+            return apiResponse.Data;
+        }
+
+        public void Delete(string Id)
+        {
+            var apiClient = new RestClient("http://localhost:5000/api");
+            var apiRequest = new RestRequest("products/" + Id, Method.DELETE, DataFormat.Json);
+            apiClient.Execute(apiRequest);
+        }
+
+        public ProductModel Update(int id, NewProductModel product)
+        {
+            var apiClient = new RestClient("http://localhost:5000/api");
+            var apiRequest = new RestRequest("products/" + id, Method.PUT, DataFormat.Json);
+            apiRequest.AddJsonBody(product);
+            var apiResponse = apiClient.Execute<ProductModel>(apiRequest);
             return apiResponse.Data;
         }
     }

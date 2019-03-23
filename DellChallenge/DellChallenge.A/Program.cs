@@ -7,6 +7,14 @@ namespace DellChallenge.A
         static void Main(string[] args)
         {
             // State and explain console output order.
+
+            //Console will output the following lines
+            //A.A()
+            //B.B()
+            //A .Age
+
+            //Because A is base class for B when we do New B "A" class constructor will be called first.
+            //After that will be called B constructor that shows B.B() and then set Age that is printing A .Age.
             new B();
             Console.ReadKey();
         }

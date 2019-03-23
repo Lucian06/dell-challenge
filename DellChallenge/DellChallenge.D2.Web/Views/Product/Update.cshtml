@@ -1,6 +1,7 @@
-﻿@model DellChallenge.D2.Web.Models.NewProductModel
+﻿@model DellChallenge.D2.Web.Models.ProductModel
+
 @{
-    ViewData["Title"] = "Add";
+    ViewData["Title"] = "Update";
 }
 
 <script type="text/javascript">
@@ -23,13 +24,19 @@
 
 </script>
 
-<h1>New</h1>
-<h4>Add New Product</h4>
+<h1>Update</h1>
+
+<h4>ProductModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Add">
+        <form asp-action="Update">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
@@ -42,11 +49,13 @@
                 <span asp-validation-for="Category" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" onclick="Validate()" />
+                <input type="submit" id="submit" value="Update" class="btn btn-primary" onclick="Validate()" />
             </div>
         </form>
     </div>
 </div>
+
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+

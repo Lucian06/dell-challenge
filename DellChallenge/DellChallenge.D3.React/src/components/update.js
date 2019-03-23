@@ -11,10 +11,11 @@ function validate(name) {
 
   return errors;
 }
-class NewProduct extends Component {
+class UpdateProduct extends Component {
   constructor() {
     super();
     this.state = {
+	  Id: "",
       Name: "",
       Category: "",
 	  errors: [],
@@ -25,7 +26,8 @@ class NewProduct extends Component {
   }
   handleSubmit = event => {
     event.preventDefault();
-    let postData = {
+    let updateData = {
+	  Id: this.state.Id,
       Name: this.state.Name,
       Category: this.state.Category
     };
@@ -34,14 +36,15 @@ class NewProduct extends Component {
       this.setState({ errors });
       return;
     }
-    fetch("http://localhost:5000/api/products", {
-      method: "POST",
+
+    fetch("http://localhost:5000/api/products/"+ this.state.Id, {
+      method: "PUT",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
       },
       mode: "cors",
-      body: JSON.stringify(postData)
+      body: JSON.stringify(updateData)
     })
     .then(res => res.json())
     .then(this.props.history.push('/products'))
@@ -59,14 +62,32 @@ class NewProduct extends Component {
   };
 
   render() {
-	const { errors } = this.state;
+	  const { errors } = this.state;
     return (
       <form onSubmit={this.handleSubmit}>
-        <h4>Add new Product</h4>
-        <div className="form-group">
+        <h4>Update Products</h4>
+		<div className="form-group">
 		{errors.map(error => (
           <p key={error}>Error: {error}</p>
         ))}
+          <label className="control-label" htmlFor="Id">
+            Id
+          </label>
+          <input
+            className="form-control"
+            type="text"
+            id="Id"
+            name="Id"
+            onChange={this.handleInputChange}
+            value={this.state.Id}
+          />
+          <span
+            className="text-danger field-validation-valid"
+            data-valmsg-for="Id"
+            data-valmsg-replace="true"
+          />
+        </div>
+        <div className="form-group">
           <label className="control-label" htmlFor="Name">
             Name
           </label>
@@ -111,4 +132,4 @@ class NewProduct extends Component {
   }
 }
 
-export default NewProduct;
+export default UpdateProduct;

@@ -6,6 +6,8 @@ let linkData = [
   { title: "Privacy", url: "/privacy" },
   { title: "Products", url: "/products" },
   { title: "NewProduct", url: "/newproduct" },
+  { title: "Delete", url: "/delete" },
+  { title: "Update", url: "/update" },
 ];
 
 const LinkList = (props) => {

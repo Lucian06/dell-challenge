@@ -9,15 +9,31 @@ namespace DellChallenge.B
             // Given the classes and interface below, please constructor the proper hierarchy.
             // Feel free to refactor and restructure the classes/interface below.
             // (Hint: Not all species and Fly and/or Swim)
+            var human = new Human();
+            human.GetSpecies();
+
+            var bird = new Bird();
+            bird.GetSpecies();
+
+            var fish = new Fish();
+            fish.GetSpecies();
         }
     }
 
-    public interface ISpecies
+    public interface IDoForLiving
     {
         void Eat();
         void Drink();
-        void Fly();
+    }
+
+    public interface ISwimSpecies : IDoForLiving
+    {
         void Swim();
+    }
+
+    public interface IFlyingSpecies : IDoForLiving
+    {
+        void Fly();
     }
 
     public class Species
@@ -28,7 +44,29 @@ namespace DellChallenge.B
         }
     }
 
-    public class Human : ISpecies
+    public class Human : Species, ISwimSpecies
+    {
+        public void Drink()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Eat()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Swim()
+        {
+            throw new NotImplementedException();
+        }
+        public override void GetSpecies()
+        {
+            Console.WriteLine($"I am Human");
+        }
+    }
+
+    public class Bird : Species, IFlyingSpecies
     {
         public void Drink()
         {
@@ -45,18 +83,33 @@ namespace DellChallenge.B
             throw new NotImplementedException();
         }
 
+        public override void GetSpecies()
+        {
+            Console.WriteLine($"I am Bird");
+        }
+    }
+
+    public class Fish : Species, ISwimSpecies
+    {
+        public void Drink()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Eat()
+        {
+            throw new NotImplementedException();
+        }
+
         public void Swim()
         {
             throw new NotImplementedException();
         }
-    }
 
-    public class Bird
-    {
-    }
-
-    public class Fish
-    {
+        public override void GetSpecies()
+        {
+            Console.WriteLine($"I am Fish");
+        }
     }
 }
 

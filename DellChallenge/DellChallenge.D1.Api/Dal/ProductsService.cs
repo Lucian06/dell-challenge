@@ -13,6 +13,11 @@ namespace DellChallenge.D1.Api.Dal
             _context = context;
         }
 
+        public ProductDto Get(int id)
+        {
+            return _context.Products.Where(w => w.Id == id.ToString()).Select(s => new ProductDto() { Id = s.Id, Name = s.Name, Category = s.Category }).FirstOrDefault(); ;
+        }
+
         public IEnumerable<ProductDto> GetAll()
         {
             return _context.Products.Select(p => MapToDto(p));
@@ -27,9 +32,32 @@ namespace DellChallenge.D1.Api.Dal
             return addedDto;
         }
 
+        public ProductDto CreateOrUpdate(int id, NewProductDto newProduct)
+        {
+            var product = _context.Products.Where(w => w.Id == id.ToString()).FirstOrDefault();
+            if (product != null)
+            {
+                product.Category = newProduct.Category;
+                product.Name = newProduct.Name;
+                _context.Products.Update(product);
+                _context.SaveChanges();
+                return MapToDto(product);
+            }
+            else
+                return Add(newProduct);
+
+        }
+
         public ProductDto Delete(string id)
         {
-            throw new System.NotImplementedException();
+            var product = _context.Products.Where(w => w.Id == id.ToString()).FirstOrDefault();
+            if (product != null)
+            {
+                _context.Products.Remove(product);
+                return MapToDto(product);
+            }
+            else
+                return null;
         }
 
         private Product MapToData(NewProductDto newProduct)
